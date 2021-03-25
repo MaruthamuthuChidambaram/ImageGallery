@@ -1,0 +1,66 @@
+{% block user_content %}
+<div class="card card-static-2 mt-30 mb-30">
+    <div class="card-title-2 table-head">
+        <h4>All Images</h4>
+        <h4>Total Images : <strong>{{images.paginator.count}}</strong></h4>
+    </div>
+    <div class="card-body-table">
+        <div class="table-responsive">
+            <table class="table ucp-table table-hover" id="table_div">
+                <thead>
+                    <tr>
+                        <th style="width:60px">S.No</th>
+                        <th>Image</th>
+                        <th>Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if images %}
+                        {% for image in images %}
+                        <tr>
+                            <td>{{ forloop.counter0 | add:images.start_index }}</td>
+                            <td>
+                                <div class="cate-img">
+                                    {% if image.image %}
+                                        <img src="/media/{{image.image}}" alt="">
+                                    {% else %}
+                                        <img src="/media/no_img_available.png" alt="">
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td>{{image.category.name}}</td>
+                           
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr><td colspan="7" align="center">No Records Found..</td></tr>
+                    {% endif %}
+                </tbody>
+            </table>
+            {% if images.has_other_pages %}
+            <div class="col text-center mb-4">
+                   <div class="pagination-area text-center">
+                   <nav aria-label="navigation"> 
+                       <a onclick="showDiv('1');" class="prev first-page" href="javascript:void(0);">First</a>
+                       {% if images.has_previous %}
+                       <a onclick="showDiv('{{ images.previous_page_number }}');" class="prev page-numbers" href="javascript:void(0);"><<</a>
+                       {% endif %}
+                       {% for i in images.paginator.page_range %}
+                           {% if images.number == i %}
+                               <a onclick="showDiv('{{ i }}');" class="page-numbers current" href="javascript:void(0);">{{ i }}</a>
+                           {% elif i > images.number|add:'-3' and i < images.number|add:'3' %}
+                               <a onclick="showDiv('{{ i }}');" class="page-numbers" href="javascript:void(0);">{{ i }}</a>
+                           {% endif %}
+                       {% endfor %}
+                       {% if images.has_next %}
+                       <a onclick="showDiv('{{ images.next_page_number }}');"class="next page-numbers" href="javascript:void(0);">>></a>
+                       {% endif %}
+                       <a onclick="showDiv('{{ images.paginator.num_pages }}');" class="prev last-page" href="javascript:void(0);">Last</a>
+                   </nav>
+               </div>
+           </div>
+           {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

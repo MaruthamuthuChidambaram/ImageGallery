@@ -1,0 +1,70 @@
+{% extends 'base.html' %} {% load static %}
+{% block content %}
+<main>
+    <div class="container-fluid">
+        <h2 class="mt-30 page-title">Images</h2>
+        <ol class="breadcrumb mb-30">
+            <li class="breadcrumb-item"><a href="/">Images</a></li>
+            <li class="breadcrumb-item active">Image</li>
+            <li class="breadcrumb-item active">{{action}} Image</li>
+            
+        </ol>
+        
+        <div class="row">
+            <div class="col-lg-6 col-md-6 card card-static-2 mb-30">
+                <div class="card-body-table">
+                    <form class="formValidate" id="image_form" novalidate>
+                        {%csrf_token%}
+                        <div class="news-content-right pd-20">
+                            <div class="form-group">
+                                <label class="form-label">Category<span class="asterisk"> *</span></label>
+                                <select id="category" name="category" class="form-control validate" data-select="true">
+                                    <option value="0" selected>--Select Category--</option>
+                                    {% for i in category %}  
+                                        <option value="{{i.id}}" {% if i.id == image.category.id %} selected {% endif %}>
+                                            {{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Image</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input image_class" id="image" name="image" aria-describedby="inputGroupFileAddon04" accept="image/*">
+                                        <label class="custom-file-label" for="inputGroupFile04">Choose Image</label>
+                                    </div>
+                                </div>
+                                <div class="add-cate-img">
+                                    {% if image.image %}
+                                        <img id="image_src" class="image_src_category" src="/media/{{image.image}}" alt="">
+                                    {% else %} 
+                                        <img id="image_src" class="image_src_category" src="/static/ui/images/icon-1.svg" alt="">
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="form-group" style="display:none">
+                                <label class="form-label">Table ID</label>
+                                <input type="text" name="id" id="id" class="form-control" value="{{image.id}}"
+                                    data-page-no="{{page}}" placeholder="Table ID">
+                            </div>
+
+                            {% if user.id %}
+                                <button class="save-btn hover-btn" type="button" id="user_update" onclick="save_function('UPDATE');">Update Image</button>
+                            {% else %}
+                                <button class="save-btn hover-btn" type="button" id="user_create" onclick="save_function('CREATE');">Add New Image</button>
+                            {% endif %}
+                        </div> 
+                    </form>
+                </div>
+                    
+            </div>
+                        
+        </div>
+    </div>
+</main>
+{% endblock %}
+{%block scripts%}
+<script type="text/javascript" src="/static/dev/js/home_page/image.js"></script>
+{% endblock %}

@@ -1,0 +1,23 @@
+.asterisk,.error {color: red;}
+.dpass{display:none;}
+.ui-front {z-index: 1000!important;}
+.table-head{justify-content: space-between;}
+.ui-menu-item a {width: 100%; display: block;}
+.filtr-cate-title{
+    display: flex;
+    justify-content: space-between;
+}
+.filtr-cate-title a{
+    margin: 10px 0 10px!important;
+}
+.remove-btn{ margin-left: 5px;}
+.remove-btn i{ color: red; }
+.ui-autocomplete {z-index: 9999!important;}
+.cursor{cursor: pointer;}
+.show_div {display: block;}
+.hide_div {display: none;}
+.oos-error{
+    color: #f44336;
+    font-weight: 600;
+    font-size: 13px;
+}
